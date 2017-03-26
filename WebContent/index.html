@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Welcome To My Homepage</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#" class="ui-btn-active" data-icon="home">Home</a></li>
+        <li><a href="#pagetwo" data-icon="arrow-r">Page Two</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </div>
+
+  <div data-role="footer">
+    <h1>My Footer</h1>
+  </div> 
+</div> 
+
+<div data-role="page" id="pagetwo">
+  <div data-role="panel" id="myPanel"> 
+    <ul data-role="listview">
+      <li><a href="#pageone">Home</a></li>
+      <li><a href="#">Page Two</a></li>
+    </ul>
+  </div>
+  <div data-role="header">
+  <a href="#myPanel" style="height:20px;border:none;background:transparent;width:auto;float:left;" class="ui-btn ui-icon-bars ui-btn-icon-left"></a>
+    <h1 >Mobile Dashboard</h1>
+  </div>
+  
+  <div data-role="main" class="ui-content">
+  	<div id="chart_div2" style="width: 900px; height: 500px;"></div>
+  </div>
+
+  <div data-role="footer">
+    <h1>My Footer</h1>
+  </div>
+</div> 
+
+<!-- <div data-role="page" id="pageone">
+  <div data-role="panel" id="myPanel"> 
+    <h2>Panel Header</h2>
+    <p>You can close the panel by clicking outside the panel, pressing the Esc key or by swiping.</p>
+  </div> 
+
+  <div data-role="header">
+    <h1>Page Header</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Click on the button below to open the Panel.</p>
+    <a href="#myPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Open Panel</a>
+  </div>
+</div> -->
+</body>
+</html>
