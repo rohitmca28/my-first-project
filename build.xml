@@ -1,83 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build-war" name="SampleProject">
+<project basedir="." default="war" name="SampleProject">
     <property environment="env"/>
-    <property name="debuglevel" value="source,lines,vars"/>
+      
+  <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
-    <path id="Apache Tomcat v6.0 [Apache Tomcat v6.0].libraryclasspath">
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/annotations-api.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/catalina-ant.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/catalina-ha.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/catalina-tribes.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/catalina.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/ecj-4.3.1.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/el-api.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/jasper-el.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/jasper.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/jsp-api.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/servlet-api.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/tomcat-coyote.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/tomcat-dbcp.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/tomcat-i18n-es.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/tomcat-i18n-fr.jar"/>
-        <pathelement location="../../../../Apache/apache-tomcat-6.0.44/lib/tomcat-i18n-ja.jar"/>
+    <path id="Web App Libraries.libraryclasspath"/>
+    <path id="EAR Libraries.libraryclasspath"/>
+    <path id="Apache Tomcat v6.0.41 [Apache Tomcat v6.0.41].libraryclasspath">
+        <pathelement location="/var/bamboo/build/tomcat_build_files/annotations-api.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/rt.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/catalina-ant.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/catalina-ha.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/catalina-tribes.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/catalina.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/ecj-3.7.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/el-api.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/jasper-el.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/jasper.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/jsp-api.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/mysql-connector-java-5.1.18-bin.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/servlet-api.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/tomcat-coyote.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/tomcat-dbcp.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/tomcat-i18n-es.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/tomcat-i18n-fr.jar"/>
+        <pathelement location="/var/bamboo/build/tomcat_build_files/tomcat-i18n-ja.jar"/>
     </path>
     <path id="Web App Libraries.libraryclasspath"/>
     <path id="EAR Libraries.libraryclasspath"/>
-    <path id="SampleProject.classpath">
-        <pathelement location="build/classes"/>
-        <path refid="Apache Tomcat v6.0 [Apache Tomcat v6.0].libraryclasspath"/>
-        <path refid="Web App Libraries.libraryclasspath"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="build/classes"/>
-        <copy includeemptydirs="false" todir="build/classes">
+	
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<mkdir dir="build/classes"/>
+		<mkdir dir="dist" />
+           <copy includeemptydirs="false" todir="WebContent/WEB-INF/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="build/classes"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="SampleProject.classpath"/>
-        </javac>
-    </target>
-              
-              	<target name="compile" depends="init" description="compile the source">
-              	    <javac srcdir="${src}" destdir="${build}"/>
-              	  </target>
-                <target name="dist" depends="compile"
-                                    description="generate the distribution">
-                                <!-- Create the distribution directory -->
-                                <mkdir dir="${dist}/lib"/>
-
-                                <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-                                <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
-                     </target>
-              	<target name="build-war">
-
-              	   <war destfile="fax.war" webxml="${web.dir}/web.xml">
-              	      <fileset dir="${web.dir}/WebContent">
-              	         <include name="**/*.*"/>
-              	      </fileset>
-              	      
-              	      <lib dir="lib"/>             	                       	      
-              	      <classes dir="${build.dir}/web"/>
-              	   </war>
-              	   
-              	</target>
-              	
+          </copy>
+	</target>
+	
+	<target name="compile" depends="init" >
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="csrglobal_trunk.classpath"/>
+		</javac>
+	</target>
+	<target name="war" depends="compile">
+		<war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+	</target>
+	
+	<target name="clean">
+		<delete dir="dist" />
+		<delete dir="build" />
+	</target>
 </project>
