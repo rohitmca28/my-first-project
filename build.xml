@@ -3,7 +3,7 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="SampleProject">
+              as the first entry and export the buildfile again. --><project basedir="." default="war" name="SampleProject">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
@@ -69,7 +69,7 @@
                      </target>
               	<target name="war" depends="compile">
               	        <mkdir dir="dist"/>
-              	        <war destfile="SampleProject.war" webxml="WebContent/WEB-INF/web.xml">
+              	        <war destfile="dist/SampleProject.war" webxml="WebContent/WEB-INF/web.xml">
               	            <fileset dir="WebContent"/>
               	            <lib dir="lib"/>
               	            <classes dir="${classes.dir}"/>
