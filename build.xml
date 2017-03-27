@@ -67,6 +67,13 @@
                                 <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
                                 <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
                      </target>
-              	
+              	<target name="war" depends="compile">
+              	        <mkdir dir="dist"/>
+              	        <war destfile="SampleProject.war" webxml="WebContent/WEB-INF/web.xml">
+              	            <fileset dir="WebContent"/>
+              	            <lib dir="lib"/>
+              	            <classes dir="${classes.dir}"/>
+              	        </war>
+              	    </target> 
               	
 </project>
