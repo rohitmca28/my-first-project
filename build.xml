@@ -3,9 +3,8 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="war" name="SampleProject">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="SampleProject">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../eclipse/java-neon/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
@@ -42,7 +41,10 @@
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
-    </target>              	
+    </target>
+    <target name="clean">
+        <delete dir="build/classes"/>
+    </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects"/>
@@ -53,17 +55,26 @@
             <classpath refid="SampleProject.classpath"/>
         </javac>
     </target>
-    <target name= "war">
-    	<war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
-    		<fileset dir="WebContent"/>
-    		<classes dir="build/classes"/>
-    		<lib dir="WebContent/WEB-INF/lib"/> 
-    	</war>
-    </target>          	
-	<target name="clean">
-		<delete dir="dist" />
-		<delete dir="build" />
-		<delete dir="${gtcSrcPath}/dist" />
-		<delete dir="${gtcSrcPath}/build" />
-	</target>
+              
+              	<target name="compile" depends="init"
+              	        description="compile the source">
+              	    <javac srcdir="${src}" destdir="${build}"/>
+              	  </target>
+                <target name="dist" depends="compile"
+                                    description="generate the distribution">
+                                <!-- Create the distribution directory -->
+                                <mkdir dir="${dist}/lib"/>
+
+                                <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+                                <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+                     </target>
+              	<target name="war" depends="compile">
+              			<war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
+              				<fileset dir="WebContent"/>
+              				<lib dir="WebContent/WEB-INF/lib"/>
+              				<classes dir="build/classes"/>
+              			</war>
+              		</target>
+              	
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
 </project>
