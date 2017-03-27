@@ -52,13 +52,16 @@
 			<classpath refid="csrglobal_trunk.classpath"/>
 		</javac>
 	</target>
-	<target name="war" depends="compile">
-		<war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
-			<fileset dir="WebContent"/>
-			<lib dir="WebContent/WEB-INF/lib"/>
-			<classes dir="build/classes"/>
-		</war>
-	</target>
+	<war destfile = "war" webxml = "WebContent/WEB-INF/web.xml">
+
+	   <fileset dir = "${web.dir}/WebContent">
+	      <include name = "**/*.*"/>
+	   </fileset>
+		<lib dir="WebContent/WEB-INF/lib"/>
+	   <classes dir = "build/classes"/>
+	   
+	</war>
+	
 	
 	<target name="clean">
 		<delete dir="dist" />
