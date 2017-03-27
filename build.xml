@@ -69,8 +69,8 @@
                      </target>
               	<target name="war" depends="compile">
               	        <mkdir dir="dist"/>
-              	        <war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
-              	            
+              	        <war destfile="dist/ROOT.war">
+              	            <fileset dir="WebContent"/>
               	            <lib dir="lib"/>
               	            <classes dir="${classes.dir}"/>
               	        </war>
