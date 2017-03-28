@@ -54,6 +54,7 @@
 	</target>
 
 	<target name="war" depends="compile">
+	<delete file="dist/ROOT.war" />
 		<war destfile="dist/ROOT.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent"/>
 			<lib dir="WebContent/WEB-INF/lib"/>
